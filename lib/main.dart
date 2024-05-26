@@ -1,4 +1,4 @@
-import 'package:climate_wise/pages/home.dart';
+import 'package:climate_wise/wrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +6,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: const FirebaseOptions(
-          apiKey: 'AIzaSyDLKNtocYxdxcYs6aAX6kxc_I8oOLDVFa',
+          apiKey: 'AIzaSyDLKNtocYxdxcYs6aAX6kxc_I8oOLDVFaI',
           appId: '1:205354455751:android:1029909b0e4c57654be4e2',
           messagingSenderId: '205354455751',
           projectId: 'pmsn2024-87bbf'));
@@ -27,7 +27,7 @@ class MainApp extends StatelessWidget {
           background: Color(0xfffcedcc),
         ),
       ),
-      home: const Home(),
+      home: const Wrapper(),
       debugShowCheckedModeBanner: false,
     );
   }

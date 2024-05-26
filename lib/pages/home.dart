@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -5,6 +6,12 @@ class Home extends StatefulWidget {
 
   @override
   State<Home> createState() => _HomeState();
+}
+
+final user = FirebaseAuth.instance.currentUser;
+
+signOut() async {
+  await FirebaseAuth.instance.signOut();
 }
 
 class _HomeState extends State<Home> {
@@ -15,8 +22,12 @@ class _HomeState extends State<Home> {
         title: const Text('Home'),
         centerTitle: true,
       ),
-      body: const Center(
-        child: Text('Este es el home'),
+      body: Center(
+        child: Text('${user!.email}'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (() => signOut()),
+        child: const Icon(Icons.login_rounded),
       ),
     );
   }
