@@ -1,30 +1,32 @@
-import 'package:climate_wise/pages/forgot.dart';
-import 'package:climate_wise/pages/signup.dart';
+import 'package:climate_wise/wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<SignUp> createState() => _SignUpState();
 }
 
 TextEditingController email = TextEditingController();
 TextEditingController password = TextEditingController();
 
-signIn() async {
-  await FirebaseAuth.instance
-      .signInWithEmailAndPassword(email: email.text, password: password.text);
+signUp() async {
+  await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: email.text, password: password.text);
+
+  // Navega a la pantalla 'Wrapper()' y elimina todas las rutas anteriores del stack de navegación.
+  Get.offAll(Wrapper());
 }
 
-class _LoginState extends State<Login> {
+class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: const Text('Sign Up'),
         centerTitle: true,
       ),
       body: Padding(
@@ -41,17 +43,7 @@ class _LoginState extends State<Login> {
                   const InputDecoration(hintText: 'Ingresa tu contraseña'),
             ),
             ElevatedButton(
-              onPressed: (() => signIn()),
-              child: const Text('Login'),
-            ),
-            ElevatedButton(
-              onPressed: (() => Get.to(SignUp())),
-              child: const Text('Register Now'),
-            ),
-            ElevatedButton(
-              onPressed: (() => Get.to(Forgot())),
-              child: const Text('Forgot Password?'),
-            ),
+                onPressed: (() => signUp()), child: const Text('Sign Up'))
           ],
         ),
       ),
