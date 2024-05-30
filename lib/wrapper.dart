@@ -1,5 +1,6 @@
 import 'package:climate_wise/pages/home.dart';
 import 'package:climate_wise/pages/login.dart';
+import 'package:climate_wise/pages/verify.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,12 @@ class _WrapperState extends State<Wrapper> {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return Home();
+            print(snapshot.data);
+            if (snapshot.data!.emailVerified) {
+              return Home();
+            } else {
+              return Verify();
+            }
           } else {
             return Login();
           }
