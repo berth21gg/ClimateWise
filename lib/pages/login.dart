@@ -3,6 +3,7 @@ import 'package:climate_wise/pages/forgot.dart';
 import 'package:climate_wise/pages/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -42,6 +43,20 @@ class _LoginState extends State<Login> {
     });
   }
 
+  signInGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
   @override
   Widget build(BuildContext context) {
     return isLoading
@@ -78,6 +93,10 @@ class _LoginState extends State<Login> {
                   ElevatedButton(
                     onPressed: (() => Get.to(Forgot())),
                     child: const Text('Forgot Password?'),
+                  ),
+                  ElevatedButton(
+                    onPressed: (() => signInGoogle()),
+                    child: const Text('Sign In Google'),
                   ),
                 ],
               ),
