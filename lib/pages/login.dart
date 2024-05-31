@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:climate_wise/pages/forgot.dart';
 import 'package:climate_wise/pages/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -57,6 +58,22 @@ class _LoginState extends State<Login> {
     await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
+  Future<UserCredential> signInFacebook() async {
+    final LoginResult loginResult = await FacebookAuth.instance.login(
+      permissions: ['email', 'public_profile'],
+    );
+    if (loginResult.status == LoginStatus.success) {
+      final OAuthCredential facebookAuthCredential =
+          FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
+      return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+    } else {
+      throw FirebaseAuthException(
+        code: 'ERROR_FACEBOOK_LOGIN_FAILED',
+        message: loginResult.message,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return isLoading
@@ -97,6 +114,10 @@ class _LoginState extends State<Login> {
                   ElevatedButton(
                     onPressed: (() => signInGoogle()),
                     child: const Text('Sign In Google'),
+                  ),
+                  ElevatedButton(
+                    onPressed: (() => signInFacebook()),
+                    child: const Text('Sign In Facebook'),
                   ),
                 ],
               ),

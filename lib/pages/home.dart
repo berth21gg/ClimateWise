@@ -1,5 +1,8 @@
+import 'package:climate_wise/pages/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Home extends StatefulWidget {
@@ -9,14 +12,18 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-final user = FirebaseAuth.instance.currentUser;
-
-signOut() async {
-  await GoogleSignIn().signOut();
-  await FirebaseAuth.instance.signOut();
-}
-
 class _HomeState extends State<Home> {
+  final user = FirebaseAuth.instance.currentUser;
+
+  signOut() async {
+    final AccessToken? accessToken = await FacebookAuth.instance.accessToken;
+    if (accessToken != null) {
+      await FacebookAuth.instance.logOut();
+    }
+    await GoogleSignIn().signOut();
+    await FirebaseAuth.instance.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
