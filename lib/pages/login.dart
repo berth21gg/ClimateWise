@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:climate_wise/pages/forgot.dart';
 import 'package:climate_wise/pages/signup.dart';
@@ -17,6 +18,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  bool isPasswordVisible = false;
 
   bool isLoading = false;
 
@@ -117,6 +119,7 @@ class _LoginState extends State<Login> {
             child: CircularProgressIndicator(),
           )
         : Scaffold(
+            backgroundColor: Colors.grey[200],
             appBar: AppBar(
               title: const Text('Login'),
               centerTitle: true,
@@ -125,19 +128,64 @@ class _LoginState extends State<Login> {
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  TextField(
-                    controller: email,
-                    decoration:
-                        const InputDecoration(hintText: 'Ingresa tu email'),
+                  Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Card(
+                        surfaceTintColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        elevation: 8,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              _buildEmailField(),
+                              Divider(
+                                  thickness: 1,
+                                  height: 1,
+                                  color: Colors.grey[300]),
+                              _buildPasswordField(),
+                              const SizedBox(height: 32),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        bottom: -20,
+                        left: 16,
+                        right: 16,
+                        child: Center(
+                          child: ElevatedButton(
+                              onPressed: (() => signIn()),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blueAccent[400],
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 12, horizontal: 128),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              child: const Text(
+                                'LOGIN',
+                                style: TextStyle(color: Colors.white),
+                              )),
+                        ),
+                      )
+                    ],
                   ),
-                  TextField(
-                    controller: password,
-                    decoration: const InputDecoration(
-                        hintText: 'Ingresa tu contraseña'),
-                  ),
-                  ElevatedButton(
-                    onPressed: (() => signIn()),
-                    child: const Text('Login'),
+                  const SizedBox(height: 24),
+                  Center(
+                    child: RichText(
+                        text: TextSpan(
+                            text: 'Forgot Password?',
+                            style: const TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = (() => Get.to(() => const Forgot())))),
                   ),
                   ElevatedButton(
                     onPressed: (() => Get.to(() => SignUp())),
@@ -163,5 +211,46 @@ class _LoginState extends State<Login> {
               ),
             ),
           );
+  }
+
+  _buildEmailField() {
+    return TextFormField(
+      controller: email,
+      decoration: InputDecoration(
+        hintText: 'Email Address',
+        prefixIcon: const Icon(Icons.email_outlined),
+        suffixIcon: email.text.isEmpty
+            ? const Icon(Icons.close, color: Colors.red)
+            : const Icon(Icons.check, color: Colors.green),
+        border: InputBorder.none,
+        contentPadding: const EdgeInsets.symmetric(vertical: 15),
+      ),
+      onChanged: (value) {
+        setState(() {});
+      },
+    );
+  }
+
+  _buildPasswordField() {
+    return TextFormField(
+      controller: password,
+      obscureText: !isPasswordVisible,
+      decoration: InputDecoration(
+        hintText: 'Password',
+        prefixIcon: const Icon(Icons.lock_outline),
+        suffixIcon: IconButton(
+          icon: Icon(isPasswordVisible
+              ? Icons.visibility_outlined
+              : Icons.visibility_off_outlined),
+          onPressed: () {
+            setState(() {
+              isPasswordVisible = !isPasswordVisible;
+            });
+          },
+        ),
+        border: InputBorder.none,
+        contentPadding: const EdgeInsets.symmetric(vertical: 15),
+      ),
+    );
   }
 }
