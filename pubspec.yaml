@@ -35,3 +35,5 @@ flutter:
       - assets/google_logo.jpg
       - assets/animations/logo.json
       - assets/animations/forgot_logo.json
+      - assets/animations/verify_logo.json
+

@@ -53,7 +53,7 @@ class _ForgotState extends State<Forgot> {
                 padding: EdgeInsets.only(top: 16.0, bottom: 16.0),
                 child: Center(
                   child: Text(
-                    'Provide your email and we will send you a link to reset your password',
+                    'Provide your email and we will send you a link to reset your password.',
                   ),
                 ),
               ),

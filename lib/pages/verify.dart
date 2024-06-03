@@ -1,7 +1,9 @@
 import 'package:climate_wise/wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 class Verify extends StatefulWidget {
   const Verify({super.key});
@@ -67,17 +69,85 @@ class _VerifyState extends State<Verify> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Verification')),
-      body: const Padding(
+      backgroundColor: Colors.grey[200],
+      body: Padding(
         padding: EdgeInsets.all(20.0),
-        child: Center(
-          child: Text(
-              'Abre tu correo y  da click en el enlace proporcionado para verificar tu email y recarga esta página'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 40.0),
+              child: Lottie.asset('assets/animations/verify_logo.json',
+                  width: 210, height: 210),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0, bottom: 32.0),
+              child: Center(
+                child: RichText(
+                  text: const TextSpan(
+                    text: 'Verify your email address ',
+                    style: TextStyle(
+                        color: Color(0xFF455A64),
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 16.0, bottom: 16.0),
+              child: Center(
+                child: Text(
+                  'We have just send email verification link on your email. Please check your email and click on that link to verify your Email address.',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 16.0, bottom: 16.0),
+              child: Center(
+                child: Text(
+                  'If not auto redirected after verification, click on the Reload button.',
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+              child: Center(
+                  child: ElevatedButton(
+                      onPressed: (() => reload()),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent[400],
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 128),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Text(
+                        'RELOAD',
+                        style: TextStyle(color: Colors.white),
+                      ))),
+            ),
+            const SizedBox(height: 24),
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+              child: Center(
+                child: RichText(
+                    text: TextSpan(
+                        text: 'Back to login',
+                        style: const TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = (() => Get.offAll(() => const Wrapper())))),
+              ),
+            ),
+          ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (() => reload()),
-        child: const Icon(Icons.restart_alt_rounded),
       ),
     );
   }
