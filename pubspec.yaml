@@ -33,6 +33,8 @@ flutter:
       - assets/github_logo.png
       - assets/google_logo.png
       - assets/google_logo.jpg
+      - assets/email_logo.png
+      - assets/user_profile.png
       - assets/animations/logo.json
       - assets/animations/forgot_logo.json
       - assets/animations/verify_logo.json
