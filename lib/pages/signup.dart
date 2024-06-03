@@ -51,7 +51,6 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -67,13 +66,16 @@ class _SignUpState extends State<SignUp> {
                 padding: const EdgeInsets.only(top: 16.0, bottom: 32.0),
                 child: Center(
                   child: RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                         text: 'Climate ',
                         style: TextStyle(
-                            color: Color(0xFF455A64),
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Color(0xFFCFD8DC)
+                                    : Color(0xFF455A64),
                             fontSize: 32,
                             fontWeight: FontWeight.bold),
-                        children: [
+                        children: const [
                           TextSpan(
                               text: 'Wise',
                               style: TextStyle(
@@ -88,7 +90,10 @@ class _SignUpState extends State<SignUp> {
                 clipBehavior: Clip.none,
                 children: [
                   Card(
-                    surfaceTintColor: Colors.white,
+                    surfaceTintColor:
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Color(0xFFCFD8DC)
+                            : Color(0xFF455A64),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                     elevation: 8,
@@ -155,7 +160,11 @@ class _SignUpState extends State<SignUp> {
                   child: RichText(
                     text: TextSpan(
                         text: "Already have a account? ",
-                        style: const TextStyle(color: Colors.black),
+                        style: TextStyle(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black),
                         children: [
                           TextSpan(
                             text: 'Login',

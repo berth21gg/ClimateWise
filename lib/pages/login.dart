@@ -120,7 +120,7 @@ class _LoginState extends State<Login> {
             child: CircularProgressIndicator(),
           )
         : Scaffold(
-            backgroundColor: Colors.grey[200],
+            //backgroundColor: Colors.grey[200],
             body: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -136,13 +136,16 @@ class _LoginState extends State<Login> {
                       padding: const EdgeInsets.only(top: 16.0, bottom: 32.0),
                       child: Center(
                         child: RichText(
-                          text: const TextSpan(
+                          text: TextSpan(
                               text: 'Climate ',
                               style: TextStyle(
-                                  color: Color(0xFF455A64),
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Color(0xFFCFD8DC)
+                                      : Color(0xFF455A64),
                                   fontSize: 32,
                                   fontWeight: FontWeight.bold),
-                              children: [
+                              children: const [
                                 TextSpan(
                                     text: 'Wise',
                                     style: TextStyle(
@@ -157,7 +160,10 @@ class _LoginState extends State<Login> {
                       clipBehavior: Clip.none,
                       children: [
                         Card(
-                          surfaceTintColor: Colors.white,
+                          surfaceTintColor:
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? Color(0xFFCFD8DC)
+                                  : Color(0xFF455A64),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                           elevation: 8,
@@ -258,7 +264,11 @@ class _LoginState extends State<Login> {
                         child: RichText(
                           text: TextSpan(
                               text: "Don't have a account? ",
-                              style: const TextStyle(color: Colors.black),
+                              style: TextStyle(
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black),
                               children: [
                                 TextSpan(
                                   text: 'Sign Up',

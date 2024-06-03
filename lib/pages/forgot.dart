@@ -23,7 +23,6 @@ class _ForgotState extends State<Forgot> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -39,10 +38,12 @@ class _ForgotState extends State<Forgot> {
                 padding: const EdgeInsets.only(top: 16.0, bottom: 32.0),
                 child: Center(
                   child: RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                       text: 'Forgot Password ',
                       style: TextStyle(
-                          color: Color(0xFF455A64),
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Color(0xFFCFD8DC)
+                              : Color(0xFF455A64),
                           fontSize: 32,
                           fontWeight: FontWeight.bold),
                     ),
@@ -61,7 +62,10 @@ class _ForgotState extends State<Forgot> {
                 clipBehavior: Clip.none,
                 children: [
                   Card(
-                    surfaceTintColor: Colors.white,
+                    surfaceTintColor:
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Color(0xFFCFD8DC)
+                            : Color(0xFF455A64),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                     elevation: 8,

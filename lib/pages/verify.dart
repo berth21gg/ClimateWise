@@ -69,7 +69,6 @@ class _VerifyState extends State<Verify> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
       body: Padding(
         padding: EdgeInsets.all(20.0),
         child: Column(
@@ -84,10 +83,12 @@ class _VerifyState extends State<Verify> {
               padding: const EdgeInsets.only(top: 16.0, bottom: 32.0),
               child: Center(
                 child: RichText(
-                  text: const TextSpan(
+                  text: TextSpan(
                     text: 'Verify your email address ',
                     style: TextStyle(
-                        color: Color(0xFF455A64),
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Color(0xFFCFD8DC)
+                            : Color(0xFF455A64),
                         fontSize: 32,
                         fontWeight: FontWeight.bold),
                   ),
