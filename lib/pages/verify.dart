@@ -61,7 +61,7 @@ class _VerifyState extends State<Verify> {
   reload() async {
     await FirebaseAuth.instance.currentUser!
         .reload()
-        .then((value) => {Get.offAll(Wrapper())});
+        .then((value) => {Get.offAll(() => Wrapper())});
   }
 
   @override

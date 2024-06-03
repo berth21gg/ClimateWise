@@ -18,7 +18,7 @@ signUp() async {
       email: email.text, password: password.text);
 
   // Navega a la pantalla 'Wrapper()' y elimina todas las rutas anteriores del stack de navegación.
-  Get.offAll(Wrapper());
+  Get.offAll(() => Wrapper());
 }
 
 class _SignUpState extends State<SignUp> {

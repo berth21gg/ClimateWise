@@ -18,9 +18,12 @@ class _WrapperState extends State<Wrapper> {
       body: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else if (snapshot.hasData) {
+            User? user = snapshot.data;
             print(snapshot.data);
-            if (snapshot.data!.emailVerified) {
+            if (user != null && user.emailVerified) {
               return Home();
             } else {
               return Verify();
