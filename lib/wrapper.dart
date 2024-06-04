@@ -1,5 +1,6 @@
 import 'package:climate_wise/pages/home.dart';
 import 'package:climate_wise/pages/login.dart';
+import 'package:climate_wise/pages/screens.dart';
 import 'package:climate_wise/pages/verify.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class _WrapperState extends State<Wrapper> {
             User? user = snapshot.data;
             print(snapshot.data);
             if (user != null && user.emailVerified) {
-              return Home();
+              return WelcomePage();
             } else {
               return Verify();
             }
