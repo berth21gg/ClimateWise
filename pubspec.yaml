@@ -26,6 +26,8 @@ dependencies:
   provider: ^6.1.2
   smooth_page_indicator: ^1.1.0
   sqflite: ^2.3.3+1
+  image_picker: ^1.1.2
+  firebase_storage: ^11.7.6
 
 
 dev_dependencies:
@@ -46,6 +48,9 @@ flutter:
       - assets/animations/logo.json
       - assets/animations/forgot_logo.json
       - assets/animations/verify_logo.json
+      - assets/scroll-1.jpg
+      - assets/scroll-1.png
+
   
 fonts:
 - family: Poppins

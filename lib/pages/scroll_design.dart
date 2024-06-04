@@ -151,21 +151,21 @@ class MainContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            IconButton(
-              onPressed: () async {
-                await DBProvider.db.deleteRentaById(1);
-                Navigator.pushReplacementNamed(context, 'Welcome');
-              },
-              icon: Icon(
-                Icons.delete_forever_outlined,
-                size: 30,
-              ),
-            ),
-          ],
-        ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.end,
+        //   children: [
+        //     IconButton(
+        //       onPressed: () async {
+        //         await DBProvider.db.deleteRentaById(1);
+        //         Navigator.pushReplacementNamed(context, 'Welcome');
+        //       },
+        //       icon: Icon(
+        //         Icons.delete_forever_outlined,
+        //         size: 30,
+        //       ),
+        //     ),
+        //   ],
+        // ),
         const SizedBox(height: 00),
         Text('Temperatura: ', style: subtitleStyle),
         Text('${weather.temp.toStringAsFixed(1)}°', style: textStyle),
@@ -215,16 +215,16 @@ class MainContent extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              IconButton(
-                onPressed: () async {
-                  await DBProvider.db.deleteRentaById(1);
-                  Navigator.pushReplacementNamed(context, 'Welcome');
-                },
-                icon: Icon(
-                  Icons.delete_forever_outlined,
-                  size: 30,
-                ),
-              ),
+              // IconButton(
+              //   onPressed: () async {
+              //     await DBProvider.db.deleteRentaById(1);
+              //     Navigator.pushReplacementNamed(context, 'Welcome');
+              //   },
+              //   icon: Icon(
+              //     Icons.delete_forever_outlined,
+              //     size: 30,
+              //   ),
+              // ),
               IconButton(
                 onPressed: () {
                   pageController.animateToPage(

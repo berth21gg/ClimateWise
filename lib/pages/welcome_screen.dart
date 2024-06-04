@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:climate_wise/models/paciente_model.dart';
 import 'package:climate_wise/providers/db_provider.dart';
+import 'package:get/get.dart';
 
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -227,7 +228,8 @@ class RegisterPage extends StatelessWidget {
                       actividad: int.parse(formValues['actividad']!),
                     );
                     await DBProvider.db.nuevoPaciente(nuevoPaciente);
-                    Navigator.pushReplacementNamed(context, 'ScrollDesign');
+                    Get.offNamed('ScrollDesign');
+                    //Navigator.pushReplacementNamed(context, 'ScrollDesign');
                   },
                   child: const Text('Guardar'),
                 ),
