@@ -1,3 +1,4 @@
+import 'package:climate_wise/api/firebase_api.dart';
 import 'package:climate_wise/pages/settings_screen.dart';
 import 'package:climate_wise/providers/providers.dart';
 import 'package:climate_wise/settings/theme.dart';
@@ -19,6 +20,7 @@ void main() async {
           appId: '1:205354455751:android:1029909b0e4c57654be4e2',
           messagingSenderId: '205354455751',
           projectId: 'pmsn2024-87bbf'));
+  await FirebaseApi().initNotifications();
   runApp(const AppState());
   initializeDateFormatting('es-MX');
 }

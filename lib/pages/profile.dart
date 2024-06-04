@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:climate_wise/providers/db_provider.dart';
 import 'package:climate_wise/settings/theme_controller.dart';
 import 'package:climate_wise/wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -18,6 +22,35 @@ class _ProfileState extends State<Profile> {
   final user = FirebaseAuth.instance.currentUser;
   final ThemeController themeController = Get.find();
   bool isLoading = false;
+  final ImagePicker _imagePicker = ImagePicker();
+  File? _imageFile;
+
+  final FirebaseStorage storage =
+      FirebaseStorage.instanceFor(bucket: "gs://pmsn2024-87bbf.appspot.com");
+
+  Future<void> _pickImage() async {
+    final pickedImage =
+        await _imagePicker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      setState(() {
+        _imageFile = File(pickedImage.path);
+      });
+    }
+  }
+
+  Future<void> _uploadImage() async {
+    if (user != null && _imageFile != null) {
+      final String userId = user!.uid;
+      final String fileName = 'profile_$userId.jpg';
+      final Reference storageRef =
+          storage.ref().child('profile_images').child(fileName);
+      final UploadTask uploadTask = storageRef.putFile(_imageFile!);
+      final TaskSnapshot downloadUrl = (await uploadTask);
+      final String url = await downloadUrl.ref.getDownloadURL();
+
+      await user!.updatePhotoURL(url);
+    }
+  }
 
   signOut() async {
     setState(() {
@@ -63,11 +96,13 @@ class _ProfileState extends State<Profile> {
                           children: [
                             CircleAvatar(
                               radius: 40,
-                              backgroundImage: !user!.providerData.any(
-                                      (info) => info.providerId == 'password')
-                                  ? NetworkImage(user?.photoURL ?? '')
-                                  : const AssetImage('assets/user_profile.png')
-                                      as ImageProvider,
+                              backgroundImage: _imageFile != null
+                                  ? FileImage(_imageFile!)
+                                  : user?.photoURL != null
+                                      ? NetworkImage(user!.photoURL!)
+                                      : const AssetImage(
+                                              'assets/user_profile.png')
+                                          as ImageProvider,
                             ),
                             const SizedBox(width: 12),
                             Expanded(
@@ -97,7 +132,7 @@ class _ProfileState extends State<Profile> {
                                     (info) => info.providerId == 'password') ??
                                 false)
                               IconButton(
-                                  onPressed: () {},
+                                  onPressed: () => _pickImage(),
                                   icon: const Icon(Icons.edit))
                           ],
                         ),
@@ -191,7 +226,10 @@ class _ProfileState extends State<Profile> {
             floatingActionButton: FloatingActionButton(
               backgroundColor: Colors.blueAccent[400],
               shape: CircleBorder(),
-              onPressed: (() => Get.back()),
+              onPressed: (() {
+                _uploadImage();
+                Get.back();
+              }),
               child: Icon(
                 Icons.done,
                 color: Colors.white,
