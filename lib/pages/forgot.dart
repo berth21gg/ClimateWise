@@ -39,7 +39,7 @@ class _ForgotState extends State<Forgot> {
                 child: Center(
                   child: RichText(
                     text: TextSpan(
-                      text: 'Forgot Password ',
+                      text: 'Forgot Password',
                       style: TextStyle(
                           color: Theme.of(context).brightness == Brightness.dark
                               ? Color(0xFFCFD8DC)

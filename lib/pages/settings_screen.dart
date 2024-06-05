@@ -108,14 +108,6 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color(0xffffffff),
-            Color(0xfffcedcc),
-          ],
-        ),
-      ),
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -168,7 +160,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 30),
                 DropdownButtonFormField<String>(
                   value: formValues['actividad'],
-                  style: const TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.grey),
                   dropdownColor: Colors.white,
                   focusColor: Colors.red,
                   items: const [
@@ -193,6 +185,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(height: 30),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent[400],
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 12, horizontal: 128),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                   onPressed: () async {
                     FocusScope.of(context).requestFocus(FocusNode());
                     if (!myFormKey.currentState!.validate()) {
@@ -213,7 +213,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     await DBProvider.db.updatePaciente(nuevoPaciente);
                     Navigator.pushReplacementNamed(context, 'ScrollDesign');
                   },
-                  child: const Text('Guardar'),
+                  child: const Text(
+                    'Guardar',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ],
             ),
@@ -247,7 +250,6 @@ class CustomInputField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      style: const TextStyle(color: Colors.black),
       onChanged: (value) {
         formValues[formProperty] = value;
       },
@@ -255,17 +257,16 @@ class CustomInputField extends StatelessWidget {
         hintText: hintText,
         labelText: labelText,
         helperText: helperText,
-        hintStyle: const TextStyle(color: Colors.black26),
-        floatingLabelStyle: const TextStyle(color: Color(0xff068a50)),
+        floatingLabelStyle: const TextStyle(color: Colors.blue),
         enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xff068a50)),
+          borderSide: BorderSide(color: Colors.blue),
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(10),
             topRight: Radius.circular(10),
           ),
         ),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Color(0xff068a50)),
+          borderSide: BorderSide(color: Colors.blue),
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(10),
             topRight: Radius.circular(10),
@@ -305,9 +306,6 @@ class CustomInputFieldNumber extends StatelessWidget {
       controller: controller,
       keyboardType: TextInputType.number,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      style: const TextStyle(
-        color: Colors.black,
-      ),
       onChanged: (value) {
         formValues[formProperty] = value;
       },
@@ -315,15 +313,12 @@ class CustomInputFieldNumber extends StatelessWidget {
         hintText: hintText,
         labelText: labelText,
         helperText: helperText,
-        hintStyle: const TextStyle(
-          color: Colors.black26,
-        ),
         floatingLabelStyle: const TextStyle(
-          color: Color(0xff068a50),
+          color: Colors.blue,
         ),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: Color(0xff068a50),
+            color: Colors.blue,
           ),
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(10),
@@ -332,7 +327,7 @@ class CustomInputFieldNumber extends StatelessWidget {
         ),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: Color(0xff068a50),
+            color: Colors.blue,
           ),
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(10),

@@ -50,6 +50,8 @@ flutter:
       - assets/animations/logo.json
       - assets/animations/forgot_logo.json
       - assets/animations/verify_logo.json
+      - assets/animations/notification.json
+      - assets/animations/notification2.json
       - assets/scroll-1.jpg
       - assets/scroll-1.png
 

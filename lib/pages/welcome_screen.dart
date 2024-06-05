@@ -1,4 +1,3 @@
-import 'package:climate_wise/pages/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:climate_wise/models/paciente_model.dart';
 import 'package:climate_wise/providers/db_provider.dart';
@@ -62,14 +61,6 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color(0xfffcedcc),
-            Color(0xffffffff),
-          ],
-        ),
-      ),
       child: const SafeArea(
         minimum: EdgeInsets.symmetric(vertical: 100, horizontal: 30),
         // ignore: unnecessary_const
@@ -94,7 +85,6 @@ class WelcomePage extends StatelessWidget {
               'Protégete de los cambios climáticos y evita tener\n malos ratos.',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Color(0xff000000),
                 fontSize: 20,
               ),
               textAlign: TextAlign.center,
@@ -122,14 +112,6 @@ class RegisterPage extends StatelessWidget {
     };
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color(0xffffffff),
-            Color(0xfffcedcc),
-          ],
-        ),
-      ),
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -186,7 +168,7 @@ class RegisterPage extends StatelessWidget {
                   height: 30,
                 ),
                 DropdownButtonFormField(
-                  style: const TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.grey),
                   dropdownColor: Colors.white,
                   focusColor: Colors.red,
                   items: const [
@@ -211,7 +193,14 @@ class RegisterPage extends StatelessWidget {
                   height: 30,
                 ),
                 ElevatedButton(
-                  style: const ButtonStyle(),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent[400],
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 12, horizontal: 128),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                   onPressed: () async {
                     FocusScope.of(context).requestFocus(FocusNode());
                     if (!myFormKey.currentState!.validate()) {
@@ -232,7 +221,10 @@ class RegisterPage extends StatelessWidget {
                     Get.offNamed('ScrollDesign');
                     //Navigator.pushReplacementNamed(context, 'ScrollDesign');
                   },
-                  child: const Text('Guardar'),
+                  child: const Text(
+                    'Guardar',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ],
             ),
@@ -262,9 +254,6 @@ class CustomInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      style: const TextStyle(
-        color: Colors.black,
-      ),
       onChanged: (value) {
         formValues[formProperty] = value;
       },
@@ -272,15 +261,12 @@ class CustomInputField extends StatelessWidget {
         hintText: hintText,
         labelText: labelText,
         helperText: helperText,
-        hintStyle: const TextStyle(
-          color: Colors.black26,
-        ),
         floatingLabelStyle: const TextStyle(
-          color: Color(0xff068a50),
+          color: Colors.blue,
         ),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: Color(0xff068a50),
+            color: Colors.blue,
           ),
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(10),
@@ -289,7 +275,7 @@ class CustomInputField extends StatelessWidget {
         ),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: Color(0xff068a50),
+            color: Colors.blue,
           ),
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(10),
@@ -327,9 +313,6 @@ class CustomInputFieldNumber extends StatelessWidget {
     return TextFormField(
       keyboardType: TextInputType.number,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      style: const TextStyle(
-        color: Colors.black,
-      ),
       onChanged: (value) {
         formValues[formProperty] = value;
       },
@@ -337,15 +320,12 @@ class CustomInputFieldNumber extends StatelessWidget {
         hintText: hintText,
         labelText: labelText,
         helperText: helperText,
-        hintStyle: const TextStyle(
-          color: Colors.black26,
-        ),
         floatingLabelStyle: const TextStyle(
-          color: Color(0xff068a50),
+          color: Colors.blue,
         ),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: Color(0xff068a50),
+            color: Colors.blue,
           ),
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(10),
@@ -354,7 +334,7 @@ class CustomInputFieldNumber extends StatelessWidget {
         ),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: Color(0xff068a50),
+            color: Colors.blue,
           ),
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(10),

@@ -1,4 +1,5 @@
 import 'package:climate_wise/pages/profile.dart';
+import 'package:climate_wise/wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:climate_wise/models/models.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
+import 'dart:math' as math;
 
 extension StringExtension on String {
   String capitalize() {
@@ -269,10 +271,22 @@ class Background extends StatelessWidget {
 class Screen2 extends StatelessWidget {
   final PageController pageController;
 
-  const Screen2({
-    Key? key,
+  Screen2({
+    super.key,
     required this.pageController,
-  }) : super(key: key);
+  });
+
+  final user = FirebaseAuth.instance.currentUser;
+
+  signOut() async {
+    final AccessToken? accessToken = await FacebookAuth.instance.accessToken;
+    if (accessToken != null) {
+      await FacebookAuth.instance.logOut();
+    }
+    await GoogleSignIn().signOut();
+
+    await FirebaseAuth.instance.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -319,13 +333,18 @@ class Screen2 extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'Notification');
-                    },
-                    icon: Icon(
-                      Icons.notification_important_rounded,
-                      color: Colors.black54,
+                  Transform.rotate(
+                    angle: 180 * math.pi / 180,
+                    child: IconButton(
+                      onPressed: () async {
+                        await DBProvider.db.deleteAllUser();
+                        signOut();
+                        Get.offAll(() => const Wrapper());
+                      },
+                      icon: const Icon(
+                        Icons.logout,
+                        color: Colors.black54,
+                      ),
                     ),
                   ),
                   ElevatedButton(
