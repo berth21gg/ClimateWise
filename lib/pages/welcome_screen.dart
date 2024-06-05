@@ -168,6 +168,7 @@ class RegisterPage extends StatelessWidget {
                   height: 30,
                 ),
                 DropdownButtonFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   style: const TextStyle(color: Colors.grey),
                   dropdownColor: Colors.white,
                   focusColor: Colors.red,
@@ -188,6 +189,15 @@ class RegisterPage extends StatelessWidget {
                   onChanged: (value) {
                     formValues['actividad'] = value ?? '1';
                   },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Este campo no puede estar vacío';
+                    }
+                    if (int.tryParse(value) == null) {
+                      return 'Ingrese un número valido';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(
                   height: 30,
@@ -205,7 +215,13 @@ class RegisterPage extends StatelessWidget {
                     FocusScope.of(context).requestFocus(FocusNode());
                     if (!myFormKey.currentState!.validate()) {
                       print("Formulario no válido");
-                      return;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                              'Por favor, complete todos los campos correctamente'),
+                        ),
+                      );
+                      return Get.reload();
                     }
                     // Guardar datos del formulario
                     print(formValues);
@@ -289,6 +305,12 @@ class CustomInputField extends StatelessWidget {
           ),
         ),
       ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Este campo no puede estar vacío';
+        }
+        return null;
+      },
     );
   }
 }
@@ -348,6 +370,15 @@ class CustomInputFieldNumber extends StatelessWidget {
           ),
         ),
       ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Este campo no puede estar vacío';
+        }
+        if (int.tryParse(value) == null) {
+          return 'Ingrese un número valido';
+        }
+        return null;
+      },
     );
   }
 }
