@@ -1,3 +1,4 @@
+import 'package:climate_wise/pages/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:climate_wise/models/paciente_model.dart';
 import 'package:climate_wise/providers/db_provider.dart';
@@ -166,7 +167,7 @@ class RegisterPage extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                CustomInputField(
+                CustomInputFieldNumber(
                   formProperty: 'edad',
                   formValues: formValues,
                   hintText: 'Ingrese su Edad',
@@ -175,7 +176,7 @@ class RegisterPage extends StatelessWidget {
                 const SizedBox(
                   height: 30,
                 ),
-                CustomInputField(
+                CustomInputFieldNumber(
                   formProperty: 'peso',
                   formValues: formValues,
                   hintText: 'Ingrese su Peso',
@@ -260,6 +261,71 @@ class CustomInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      style: const TextStyle(
+        color: Colors.black,
+      ),
+      onChanged: (value) {
+        formValues[formProperty] = value;
+      },
+      decoration: InputDecoration(
+        hintText: hintText,
+        labelText: labelText,
+        helperText: helperText,
+        hintStyle: const TextStyle(
+          color: Colors.black26,
+        ),
+        floatingLabelStyle: const TextStyle(
+          color: Color(0xff068a50),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Color(0xff068a50),
+          ),
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          ),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Color(0xff068a50),
+          ),
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          ),
+        ),
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomInputFieldNumber extends StatelessWidget {
+  final String? hintText;
+  final String? labelText;
+  final String? helperText;
+  final String formProperty;
+  final Map<String, String> formValues;
+  const CustomInputFieldNumber({
+    super.key,
+    this.hintText,
+    this.labelText,
+    this.helperText,
+    required this.formValues,
+    required this.formProperty,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      keyboardType: TextInputType.number,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       style: const TextStyle(
         color: Colors.black,

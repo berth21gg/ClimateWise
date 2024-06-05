@@ -1,4 +1,5 @@
 import 'package:climate_wise/api/firebase_api.dart';
+import 'package:climate_wise/pages/notification.dart';
 import 'package:climate_wise/pages/settings_screen.dart';
 import 'package:climate_wise/providers/providers.dart';
 import 'package:climate_wise/settings/theme.dart';
@@ -11,6 +12,8 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 
 import 'pages/screens.dart';
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,12 +64,14 @@ class MainApp extends StatelessWidget {
         themeMode: themeController.theme,
         home: const Wrapper(),
         debugShowCheckedModeBanner: false,
+        navigatorKey: navigatorKey,
         routes: {
           'ScrollDesign': (_) => ScrollDesignScreen(),
           'Home': (_) => const HomeScreen(),
           'Welcome': (_) => const WelcomeScreen(),
           'Settings': (_) => const SettingsScreen(),
           'Notification': (_) => const NotificationScreen(),
+          NotificationPage.route: (context) => const NotificationPage(),
         },
       );
     });

@@ -150,7 +150,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   labelText: 'Segundo Apellido',
                 ),
                 const SizedBox(height: 30),
-                CustomInputField(
+                CustomInputFieldNumber(
                   controller: edadController,
                   formProperty: 'edad',
                   formValues: formValues,
@@ -158,7 +158,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   labelText: 'Edad',
                 ),
                 const SizedBox(height: 30),
-                CustomInputField(
+                CustomInputFieldNumber(
                   controller: pesoController,
                   formProperty: 'peso',
                   formValues: formValues,
@@ -266,6 +266,74 @@ class CustomInputField extends StatelessWidget {
         ),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Color(0xff068a50)),
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          ),
+        ),
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomInputFieldNumber extends StatelessWidget {
+  final TextEditingController controller;
+  final String? hintText;
+  final String? labelText;
+  final String? helperText;
+  final String formProperty;
+  final Map<String, String> formValues;
+  const CustomInputFieldNumber({
+    super.key,
+    this.hintText,
+    this.labelText,
+    this.helperText,
+    required this.formValues,
+    required this.formProperty,
+    required this.controller,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      keyboardType: TextInputType.number,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      style: const TextStyle(
+        color: Colors.black,
+      ),
+      onChanged: (value) {
+        formValues[formProperty] = value;
+      },
+      decoration: InputDecoration(
+        hintText: hintText,
+        labelText: labelText,
+        helperText: helperText,
+        hintStyle: const TextStyle(
+          color: Colors.black26,
+        ),
+        floatingLabelStyle: const TextStyle(
+          color: Color(0xff068a50),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Color(0xff068a50),
+          ),
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          ),
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Color(0xff068a50),
+          ),
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(10),
             topRight: Radius.circular(10),
